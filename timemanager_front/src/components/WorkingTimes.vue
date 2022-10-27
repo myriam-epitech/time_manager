@@ -6,11 +6,11 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="10">
+      <v-col cols="12">
         <v-table>
           <thead>
             <tr>
-              <th class="text-left"></th>
+              <th class="text-left">Id</th>
               <th class="text-left">
                 Start
               </th>
@@ -20,9 +20,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(wt, index) in workingTimes" :key="wt.id" @click="routerManageWT(wt.id)">
+            <tr v-for="(wt) in workingTimes" :key="wt.id" @click="routerManageWT(wt.id)">
               <!-- <working-time :userId="userId" :workingtime="wt" @loadWT="getWorkingTimes()" /> -->
-              <td>{{ index + 1 }}</td>
+              <td>{{ wt.id}}</td>
               <td>{{ wt.start }}</td>
               <td>{{ wt.end }}</td>
             </tr>

@@ -58,3 +58,7 @@ export async function updateWT(_id, _data) {
 export async function deleteUser(id) {
     return await requests("DELETE", "users/" + id)
 }
+//DELETE WORKING TIME
+export async function deleteWorkingTime(id) {
+    return await requests("DELETE", "workingtimes/" + id)
+}

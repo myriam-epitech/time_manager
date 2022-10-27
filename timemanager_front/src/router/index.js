@@ -15,6 +15,7 @@ const routes = [
     },
     { 
         path: '/workingTimes/:userID',
+        name: "allWorkingTimes",
         component: WorkingTimes
     },
     { 
