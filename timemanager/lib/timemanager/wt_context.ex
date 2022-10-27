@@ -66,9 +66,9 @@ defmodule Timemanager.WTContext do
   """
   def create_wt(attrs \\ %{}, user_id) do
     %WT{user_id: user_id}
+    |> Repo.preload(:user)
     |> WT.changeset(attrs)
     |> Repo.insert()
-    |> Repo.preload(:user)
   end
 
   @doc """
@@ -85,9 +85,9 @@ defmodule Timemanager.WTContext do
   """
   def update_wt(%WT{} = wt, attrs) do
     wt
+    |> Repo.preload(:user)
     |> WT.changeset(attrs)
     |> Repo.update()
-    |> Repo.preload(:user)
   end
 
   @doc """

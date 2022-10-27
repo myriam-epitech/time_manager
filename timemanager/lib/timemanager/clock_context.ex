@@ -56,6 +56,7 @@ defmodule Timemanager.ClockContext do
   """
   def create_clock(attrs \\ %{}, user_id) do
     %Clock{user_id: user_id}
+    |> Repo.preload(:user)
     |> Clock.changeset(attrs)
     |> Repo.insert()
   end
@@ -74,6 +75,7 @@ defmodule Timemanager.ClockContext do
   """
   def update_clock(%Clock{} = clock, attrs) do
     clock
+    |> Repo.preload(:user)
     |> Clock.changeset(attrs)
     |> Repo.update()
   end
