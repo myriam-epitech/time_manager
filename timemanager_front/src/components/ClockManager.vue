@@ -1,69 +1,29 @@
 <template>
-  <v-card shaped elevation="10"> </v-card>
+  <v-container shaped elevation="10"> 
+
+    <v-btn v-if="!clockIn">CLOCK-IN</v-btn>
+    <v-btn v-else>CLOCK-IN</v-btn>
+  </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getLoggedUser, updateUser } from "../../requests";
 
 export default {
   data() {
     return {
-      messageOK: false,
-      isConnected: false,
-      showPassword: false,
-      rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 6 || "Min 6 characters",
-      },
-      edit: false,
-      userName: "",
-      userEmail: "",
-      userPassword: "",
+      startDateTime: null,
+      clockIn: false
     };
   },
 
-  watch: {
-    storeUserConnected() {
-      if (this.storeUserConnected[0] && this.edit == false) {
-        this.userName = this.storeUserConnected[0].username;
-        this.userEmail = this.storeUserConnected[0].email;
-      }
-    },
-  },
-  computed: {
-    ...mapState({
-      storeUserConnected: (s) => s.userConnected,
-    }),
-  },
-  beforeMount(){
-    this.$store.dispatch('redirection')
-  },
-  mounted() {
-    if (this.storeUserConnected[0]) {
-      this.userName = this.storeUserConnected[0].username;
-      this.userEmail = this.storeUserConnected[0].email;
-    }
-  },
   methods: {
-     createUser(){
-      return "create"
+     refresh(){
      },
      
-     updateUser(){
-       return "update"
+     clock(){
 
      },
      
-     getUser(){
-       return "get"
-
-     },
-     
-     deleteUser(){
-       return "delete"
-       
-     },
     }
 };
 </script>

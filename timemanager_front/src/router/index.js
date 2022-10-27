@@ -3,6 +3,7 @@ import User from '../components/User'
 import WorkingTimes from '../components/WorkingTimes'
 import WorkingTime from '../components/WorkingTime'
 import HelloWorld from '../components/HelloWorld'
+import ClockManager from '../components/ClockManager'
 
 const routes = [
     {
@@ -27,6 +28,11 @@ const routes = [
         path: '/workingTime/:userID/:workingtimeID',
         name: "manageWorkingTime",
         component: WorkingTime
+    },
+    { 
+        path: '/clock/:username',
+        name: "clock",
+        component: ClockManager
     },
 ]
 

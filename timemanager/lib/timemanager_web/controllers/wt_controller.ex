@@ -13,10 +13,7 @@ defmodule TimemanagerWeb.WTController do
 
   def getAll(conn, %{"userID" => user_id}) do#, "start" => param_start, "end" => param_end}) do
     workingtimes = WTContext.getAllByUserID!(user_id) #, param_start, param_end)
-    #TODO remplacer le vrai
-    # if length(workingtimes) == 0 do
-    #   send_resp(conn, 200, "Y A ZERO RESULT FRERE")
-    # end
+    #TODO gestion d'erreur
     render(conn, "index.json", workingtimes: workingtimes)
   end
 

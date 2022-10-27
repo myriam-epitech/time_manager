@@ -29,7 +29,9 @@
           </tbody>
         </v-table>
       </v-col>
-
+    </v-row>
+    <v-row>
+      <calendar :wt="workingTimes" v-if="workingTimes"/>
     </v-row>
   </div>
   <!-- 
@@ -42,9 +44,11 @@
 
 <script>
 import { getWorkingTimes } from "../requests";
+import Calendar from './utils/Calendar.vue'
 // import WorkingTime from "./WorkingTime.vue";
 
 export default {
+  components: { Calendar },
   // components: { WorkingTime },
   data() {
     return {

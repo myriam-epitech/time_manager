@@ -21,6 +21,9 @@
         Edit <v-icon dark> mdi-pencil</v-icon>
       </v-btn>
       <div v-else>
+        <v-btn @click="edit=false">
+          Cancel
+        </v-btn>
         <v-btn class="mr-4" @click="updateWorkingTime()"> Submit </v-btn>
         <v-btn v-if="!modal" @click="modal = true">
           <v-icon dark> mdi-delete</v-icon>
@@ -30,7 +33,7 @@
     <div v-else>
       <v-btn class="mr-4" @click="createWorkingTime()"> Create </v-btn>
     </div>
-    
+
     <div class="d-flex align-center flex-column">
       <v-card v-if="modal" width="600">
         <v-card-item>
@@ -127,7 +130,7 @@ export default {
           this.$router.push({ name: "allWorkingTimes", params: { userID: this.userID_param } })
         })
         .catch(() => { });
-      this.modal = false 
+      this.modal = false
     },
   },
 };

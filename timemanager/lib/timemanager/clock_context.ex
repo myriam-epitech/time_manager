@@ -55,9 +55,16 @@ defmodule Timemanager.ClockContext do
 
   """
   def create_clock(attrs \\ %{}, user_id) do
-    %Clock{user_id: user_id}
-    |> Clock.changeset(attrs)
-    |> Repo.insert()
+    query = from p in Clock, where: p.user_id == ^user_id
+    if Repo.exists?(query) do
+      clock = Repo.get_by!(Clock, [user_id: user_id])
+      update_clock(clock, attrs)
+    else
+      %Clock{user_id: user_id}
+      |> Repo.preload([:user])
+      |> Clock.changeset(attrs)
+      |> Repo.insert()
+    end
   end
 
   @doc """
@@ -65,15 +72,16 @@ defmodule Timemanager.ClockContext do
 
   ## Examples
 
-      iex> update_clock(clock, %{field: new_value})
-      {:ok, %Clock{}}
+  iex> update_clock(clock, %{field: new_value})
+  {:ok, %Clock{}}
 
-      iex> update_clock(clock, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+  iex> update_clock(clock, %{field: bad_value})
+  {:error, %Ecto.Changeset{}}
 
   """
   def update_clock(%Clock{} = clock, attrs) do
     clock
+    |> Repo.preload([:user])
     |> Clock.changeset(attrs)
     |> Repo.update()
   end
