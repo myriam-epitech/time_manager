@@ -7,7 +7,7 @@ defmodule Timemanager.UserContext.User do
     field :username, :string
 
     has_many :workingtimes, Timemanager.WTContext.WT
-    has_many :clocks, Timemanager.ClockContext.Clock
+    has_one :clocks, Timemanager.ClockContext.Clock
     timestamps()
   end
 
