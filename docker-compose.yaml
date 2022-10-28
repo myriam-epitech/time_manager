@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  front:
+    container_name: front_container
+    build: ./timemanager_front
+    ports:
+     - "8080:8080"
+    networks:
+      - app-network
+  back:
+    build: ./timemanager
+    container_name: back_container
+    ports:
+     - "4000:4000"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME}
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+    depends_on:
+      - "db"
+    networks:
+      - app-network
+  db:
+    image: postgres:13
+    container_name: db_container
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+networks:
+  app-network:
+
+volumes:
+  db_data:

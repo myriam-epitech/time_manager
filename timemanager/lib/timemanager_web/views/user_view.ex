@@ -1,8 +1,8 @@
 defmodule TimemanagerWeb.UserView do
   use TimemanagerWeb, :view
   alias TimemanagerWeb.UserView
-  alias TimemanagerWeb.WTView
-  alias TimemanagerWeb.ClockView
+  # alias TimemanagerWeb.WTView
+  # alias TimemanagerWeb.ClockView
 
 
   def render("index.json", %{users: users}) do
