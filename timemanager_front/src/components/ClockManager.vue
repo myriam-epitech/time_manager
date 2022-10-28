@@ -3,7 +3,7 @@
     <h2>Clock-in</h2>
     <v-hover v-slot="{ isHovering, props }">
       <v-card class="d-flex justify-center pa-md-4 mx-lg-auto" max-width="400" :elevation="isHovering ? 12 : 2"
-        :class="{ 'on-hover': isHovering }" height="300" v-bind="props" @click="refresh()" >
+        :class="{ 'on-hover': isHovering }" height="300" v-bind="props" @click="refresh()">
         <v-col cols="12" lg="6" md="6" class="fill-height d-flex flex-column justify-center align-center">
           <strong v-if="clockIn">
             CLOCK-OUT
@@ -14,7 +14,7 @@
         </v-col>
       </v-card>
       <strong v-if="clockIn">
-        Last clocking-in : {{new Date(startDateTime)}}
+        Last clocking-in : {{ new Date(startDateTime) }}
       </strong>
     </v-hover>
   </v-container>
@@ -22,7 +22,7 @@
 
 <script>
 
-import { createOrRefreshClock, getClock, createWorkingTime } from '../requests'
+import { createOrRefreshClock, getClock } from '../requests'
 
 export default {
   data() {
@@ -38,9 +38,7 @@ export default {
   methods: {
     refresh() {
       this.clockIn = !this.clockIn
-      if (this.clockIn) {
-        this.startDateTime = new Date()
-      }
+      this.startDateTime = new Date()
       const body = {
         "clock": {
           "status": this.clockIn,
@@ -51,9 +49,6 @@ export default {
         .then(async (response) => {
           const res = await response.json();
           console.log(res)
-          if (res.data.status == false) {
-            this.createWorkingTime()
-          }
         })
         .catch(() => { });
     },
@@ -69,23 +64,7 @@ export default {
         })
         .catch(() => { });
     },
-
-    createWorkingTime() {
-      console.log("entree dans create wt")
-      console.log(this.userID_param)
-      const body = {
-        "wt": {
-          "start": this.startDateTime,
-          "end": new Date()
-        }
-      }
-      createWorkingTime(this.userID_param, body)
-        .then(async (response) => {
-          const res = await response.json();
-          console.log(res)
-        })
-        .catch(() => { });
-    }
   }
 };
 </script>
+

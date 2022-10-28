@@ -58,6 +58,13 @@ defmodule Timemanager.ClockContext do
     query = from p in Clock, where: p.user_id == ^user_id
     if Repo.exists?(query) do
       clock = Repo.get_by!(Clock, [user_id: user_id])
+      if attrs["status"] == false and clock.status do
+        newWT = %{
+          start: clock.time, #clock.time,
+        end: attrs["time"] #attrs.time,
+        }
+        Timemanager.WTContext.create_wt(newWT, user_id)
+      end
       update_clock(clock, attrs)
     else
       %Clock{user_id: user_id}
