@@ -30,7 +30,7 @@ const routes = [
         component: WorkingTime
     },
     { 
-        path: '/clock/:username',
+        path: '/clock/:userID',
         name: "clock",
         component: ClockManager
     },

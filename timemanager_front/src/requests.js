@@ -30,6 +30,11 @@ export async function getWorkingTime(_userId, _id) {
     return await requests("GET", "workingtimes/" + _userId + "/" + _id)
 }
 
+//GET CLOCK
+export async function getClock(_userId) {
+    return await requests("GET", "clocks/" + _userId)
+}
+
 // _____________________________________POST____________________________________________ 
 
 //CREATE A NEW USER
@@ -40,6 +45,11 @@ export async function createUser(_data) {
 //CREATE WORKING TIME
 export async function createWorkingTime(_userId, _data) {
     return await requests("POST", "workingtimes/" + _userId, _data)
+}
+
+//CREATE CLOCK
+export async function createOrRefreshClock(_userId, _data) {
+    return await requests("POST", "clocks/" + _userId, _data)
 }
 
 //_____________________________________UPDATE____________________________________________ 
