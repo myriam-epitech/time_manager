@@ -1,6 +1,7 @@
 defmodule TimemanagerWeb.UserView do
   use TimemanagerWeb, :view
   alias TimemanagerWeb.UserView
+  alias TimemanagerWeb.RoleView
   # alias TimemanagerWeb.WTView
   # alias TimemanagerWeb.ClockView
 
@@ -18,6 +19,7 @@ defmodule TimemanagerWeb.UserView do
       id: user.id,
       username: user.username,
       email: user.email,
+      role: RoleView.render("show.json", %{role: user.role}).data
       # workingtimes: WTView.render("wt.json", %{wt: user.workingtimes}),
       # clocks: ClockView.render("index.json", %{clocks: user.clocks})
 

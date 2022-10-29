@@ -36,13 +36,13 @@ defmodule Timemanager.UserContext do
 
   """
   def get_user!(id) do
-    Repo.get!(User, id) |> Repo.preload([:clocks, :workingtimes])
+    Repo.get!(User, id) |> Repo.preload([:role, :clocks, :workingtimes])
     # query = from(p in User, where: p.id == ^id)
     # Repo.all(query) |> Repo.preload([:clocks, :workingtimes])
   end
 
   def get_user_by_info!(username, email) do
-    Repo.get_by!(User, [username: username, email: email]) |> Repo.preload([:clocks, :workingtimes])
+    Repo.get_by!(User, [username: username, email: email]) |> Repo.preload([:role, :clocks, :workingtimes])
   end
 
   @spec create_user(:invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}) ::
@@ -60,7 +60,9 @@ defmodule Timemanager.UserContext do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
+    role = 1 #TODO
+    %User{role_id: role}
+    |> Repo.preload([:role])
     |> User.changeset(attrs)
     |> Repo.insert()
   end
@@ -70,15 +72,16 @@ defmodule Timemanager.UserContext do
 
   ## Examples
 
-      iex> update_user(user, %{field: new_value})
-      {:ok, %User{}}
+  iex> update_user(user, %{field: new_value})
+  {:ok, %User{}}
 
-      iex> update_user(user, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+  iex> update_user(user, %{field: bad_value})
+  {:error, %Ecto.Changeset{}}
 
   """
   def update_user(%User{} = user, attrs) do
     user
+    |> Repo.preload([:role])
     |> User.changeset(attrs)
     |> Repo.update()
   end

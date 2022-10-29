@@ -12,5 +12,8 @@ defmodule Timemanager.Repo.Migrations.CreateClocks do
     alter table(:clocks) do
       add :user_id, references(:users, on_delete: :delete_all), null: false
     end
+
+    # create index(:clocks, [:user])
+
   end
 end
