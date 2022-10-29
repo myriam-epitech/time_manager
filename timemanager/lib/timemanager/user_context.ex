@@ -18,7 +18,7 @@ defmodule Timemanager.UserContext do
 
   """
   def list_users do
-    Repo.all(User) |> Repo.preload([:clocks, :workingtimes])
+    Repo.all(User) |> Repo.preload([:role, :clocks, :workingtimes])
   end
 
   @doc """

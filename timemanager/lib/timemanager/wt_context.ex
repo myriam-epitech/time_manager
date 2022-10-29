@@ -39,7 +39,7 @@ defmodule Timemanager.WTContext do
 
   def getAllByUserID!(user_id) do
      query = from(p in WT, where: p.user_id == ^user_id)
-    Repo.all(query) |> Repo.preload([:user])
+    Repo.all(query) |> Repo.preload([user: [:role]])
   end
 
   def getAllByUserIDAndParams!(user_id, param_start, param_end) do
@@ -47,10 +47,10 @@ defmodule Timemanager.WTContext do
       from p in WT,
       where: p.user_id == ^user_id,
       where: p.end <= ^param_end and p.start >= ^param_start
-    Repo.all(query)  |> Repo.preload([:user])
+    Repo.all(query)  |> Repo.preload([user: [:role]])
   end
 
-  def getOneByUserID!(user_id, id), do: Repo.get_by!(WT, [id: id, user_id: user_id]) |> Repo.preload([:user])
+  def getOneByUserID!(user_id, id), do: Repo.get_by!(WT, [id: id, user_id: user_id]) |> Repo.preload([user: [:role]])
 
   @doc """
   Creates a wt.
@@ -66,7 +66,7 @@ defmodule Timemanager.WTContext do
   """
   def create_wt(attrs \\ %{}, user_id) do
     %WT{user_id: user_id}
-    |> Repo.preload(:user)
+    |> Repo.preload([user: [:role]])
     |> WT.changeset(attrs)
     |> Repo.insert()
   end
@@ -85,7 +85,7 @@ defmodule Timemanager.WTContext do
   """
   def update_wt(%WT{} = wt, attrs) do
     wt
-    |> Repo.preload(:user)
+    |> Repo.preload([user: [:role]])
     |> WT.changeset(attrs)
     |> Repo.update()
   end

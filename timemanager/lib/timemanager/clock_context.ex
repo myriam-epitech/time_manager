@@ -23,7 +23,7 @@ defmodule Timemanager.ClockContext do
 
   def getByUserID!(user_id) do
     query = from(p in Clock, where: p.user_id == ^user_id)
-    Repo.all(query) |> Repo.preload([:user])
+    Repo.all(query) |> Repo.preload([user: [:role]])
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule Timemanager.ClockContext do
       ** (Ecto.NoResultsError)
 
   """
-  def get_clock!(id), do: Repo.get!(Clock, id)
+  def get_clock!(id), do: Repo.get!(Clock, id)|> Repo.preload([user: [:role]])
 
   @doc """
   Creates a clock.
@@ -68,7 +68,7 @@ defmodule Timemanager.ClockContext do
       update_clock(clock, attrs)
     else
       %Clock{user_id: user_id}
-      |> Repo.preload([:user])
+      |> Repo.preload([user: [:role]])
       |> Clock.changeset(attrs)
       |> Repo.insert()
     end
@@ -88,7 +88,7 @@ defmodule Timemanager.ClockContext do
   """
   def update_clock(%Clock{} = clock, attrs) do
     clock
-    |> Repo.preload([:user])
+    |> Repo.preload([user: [:role]])
     |> Clock.changeset(attrs)
     |> Repo.update()
   end
