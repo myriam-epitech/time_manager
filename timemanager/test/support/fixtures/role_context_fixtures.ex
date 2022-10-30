@@ -11,7 +11,7 @@ defmodule Timemanager.RoleContextFixtures do
     {:ok, role} =
       attrs
       |> Enum.into(%{
-        name: "some name"
+        name: "EMPLOYEE"
       })
       |> Timemanager.RoleContext.create_role()
 

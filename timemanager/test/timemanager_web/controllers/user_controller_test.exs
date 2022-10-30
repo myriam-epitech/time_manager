@@ -2,16 +2,23 @@ defmodule TimemanagerWeb.UserControllerTest do
   use TimemanagerWeb.ConnCase
 
   import Timemanager.UserContextFixtures
+  import Timemanager.RoleContextFixtures
 
   alias Timemanager.UserContext.User
 
   @create_attrs %{
-    email: "some email",
-    username: "some username"
+    email: "some@email.fr",
+    username: "someusername",
+    password: "password",
+    password_confirmation: "password",
+    role_id: 1
   }
   @update_attrs %{
-    email: "some updated email",
-    username: "some updated username"
+    email: "updated@email.fr",
+    username: "updatedusername",
+    password: "updatedpassword",
+    password_confirmation: "updatedpassword",
+    role_id: 1
   }
   @invalid_attrs %{email: nil, username: nil}
 
@@ -27,16 +34,19 @@ defmodule TimemanagerWeb.UserControllerTest do
   end
 
   describe "create user" do
-    test "renders user when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
+    setup [:create_role]
+
+    test "renders user when data is valid", %{conn: conn, role: role} do
+      user = Map.put(@create_attrs, :role_id, role.id)
+      conn = post(conn, Routes.user_path(conn, :create), user: user)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.user_path(conn, :show, id))
 
       assert %{
                "id" => ^id,
-               "email" => "some email",
-               "username" => "some username"
+               "email" => "some@email.fr",
+               "username" => "someusername"
              } = json_response(conn, 200)["data"]
     end
 
@@ -47,18 +57,20 @@ defmodule TimemanagerWeb.UserControllerTest do
   end
 
   describe "update user" do
+    setup [:create_role]
     setup [:create_user]
 
-    test "renders user when data is valid", %{conn: conn, user: %User{id: id} = user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+    test "renders user when data is valid", %{conn: conn, user: %User{id: id} = user, role: role} do
+      updated_user = Map.put(@update_attrs, :role_id, role.id)
+      conn = put(conn, Routes.user_path(conn, :update, user), user: updated_user)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.user_path(conn, :show, id))
 
       assert %{
                "id" => ^id,
-               "email" => "some updated email",
-               "username" => "some updated username"
+               "email" => "updated@email.fr",
+               "username" => "updatedusername"
              } = json_response(conn, 200)["data"]
     end
 
@@ -85,4 +97,10 @@ defmodule TimemanagerWeb.UserControllerTest do
     user = user_fixture()
     %{user: user}
   end
+
+  defp create_role(_) do
+    role = role_fixture()
+    %{role: role}
+  end
+
 end

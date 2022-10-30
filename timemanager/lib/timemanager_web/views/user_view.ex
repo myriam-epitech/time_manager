@@ -19,7 +19,7 @@ defmodule TimemanagerWeb.UserView do
       id: user.id,
       username: user.username,
       email: user.email,
-      role: RoleView.render("show.json", %{role: user.role}).data.name
+      role: RoleView.render("show.json", %{role: user.role}) #.data.name
       # workingtimes: WTView.render("wt.json", %{wt: user.workingtimes}),
       # clocks: ClockView.render("index.json", %{clocks: user.clocks})
 
