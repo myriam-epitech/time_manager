@@ -1,6 +1,13 @@
 <template>
-  <v-container shaped elevation="10">
-    <h2>Clock-in</h2>
+ <v-container>
+    <v-card-title class="text-center py-5">
+      <v-row class="d-flex justify-center ">
+        <h1 class="font-weight-bold text-h2 ml-auto mr-auto">
+          Clock-in/Clock-out
+        </h1>
+      </v-row>
+    </v-card-title>
+
     <v-hover v-slot="{ isHovering, props }">
       <v-card class="d-flex justify-center pa-md-4 mx-lg-auto" max-width="400" :elevation="isHovering ? 12 : 2"
         :class="{ 'on-hover': isHovering }" height="300" v-bind="props" @click="refresh()">
@@ -13,7 +20,7 @@
           </strong>
         </v-col>
       </v-card>
-      <strong v-if="clockIn">
+      <strong class="d-flex justify-center " v-if="clockIn">
         Last clocking-in : {{ new Date(startDateTime) }}
       </strong>
     </v-hover>

@@ -1,10 +1,7 @@
 <template>
   <v-container>
-    <vue-cal :selected-date="today" :time-from="8 * 60" :time-to="23 * 60"
-      :events="events"
-      style="height: 800px"
-      :on-event-click="(e) => onEventClick(e)"
-      >
+    <vue-cal :selected-date="today" :time-from="6 * 60" :time-to="23 * 60" :events="events" style="height: 800px"
+      :on-event-click="(e) => onEventClick(e)">
     </vue-cal>
   </v-container>
 </template>
@@ -27,20 +24,27 @@ export default {
     wt: {
       deep: true,
       handler(value) {
-        value.forEach(element => {
-          var a = JSON.parse(JSON.stringify(element))
-          a.start = new Date(a.start)
-          a.end = new Date(a.end)
-          a.class = 'work'
-
-          this.events.push(a)
-        });
+        this.loadEvents(value)
       }
     }
   },
+  beforeMount() {
+    this.loadEvents(this.wt)
+  },
   methods: {
-    onEventClick(event){
-      this.$router.push({name: "manageWorkingTime", params:{userID:this.$route.params.userID, workingtimeID: event.id}})
+    onEventClick(event) {
+      this.$router.push({ name: "manageWorkingTime", params: { userID: this.$route.params.userID, workingtimeID: event.id } })
+    },
+    loadEvents(_wt) {
+      this.events = []
+      _wt.forEach(element => {
+        var a = JSON.parse(JSON.stringify(element))
+        a.start = new Date(a.start)
+        a.end = new Date(a.end)
+        a.class = 'work'
+
+        this.events.push(a)
+      })
     }
   }
 
