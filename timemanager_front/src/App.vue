@@ -2,6 +2,8 @@
   <v-app>
     <v-main>
       <nav-bar-component/>
+      <br/>
+      <br/>
       <router-view />
     </v-main>
   </v-app>
