@@ -9,8 +9,7 @@
 
             <v-toolbar-title>
                 <v-btn text>
-                    <!-- <router-link to="/">Home</router-link> -->
-                    HOME
+                    <router-link to="/">Home</router-link>
                 </v-btn>
                 <v-btn text>
                     <!-- <router-link to="/about">About</router-link> -->
@@ -44,7 +43,7 @@
                     <v-card @click="goTo('clock', { userID: userId })" dark>
                         <v-card-title>
                             <v-icon>mdi-clock</v-icon>
-                            Clock-IN/Clock-OUT
+                            Clock-in/Clock-out
                         </v-card-title>
                         <v-card-subtitle>
                             When you arrive and leave work.
