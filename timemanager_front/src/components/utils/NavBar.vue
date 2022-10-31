@@ -19,8 +19,7 @@
             <v-spacer></v-spacer>
             <v-toolbar-title>
                 <v-btn v-if="connected" text>
-                    <!-- <router-link to="/profile">Profile</router-link> -->
-                    Profile
+                    <router-link to="/profile">Profile</router-link>
                 </v-btn>
                 <v-btn v-if="connected" text>
                     <!-- <router-link to="/login">LOGIN</router-link> -->
