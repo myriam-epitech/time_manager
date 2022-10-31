@@ -9,9 +9,12 @@ pipeline {
         }
         stage('Test Back') {
             steps {
+                sh 'pwd'
                 sh 'cd ./timemanager'
-                sh 'mix deps.get'
-                sh 'mix test'
+                sh 'pwd'
+                // sh 'cd ./timemanager'
+                // sh 'mix deps.get'
+                // sh 'mix test'
             }
         }
         stage('Deploy') {
