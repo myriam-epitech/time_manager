@@ -10,6 +10,7 @@ pipeline {
         stage('Test Back') {
             steps {
                 dir('timemanager') {
+                    sh 'mix local.hex --force'
                     sh 'mix deps.get'
                     sh 'mix test'
                 }
